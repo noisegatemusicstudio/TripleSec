@@ -1,5 +1,6 @@
 package com.noisegate.driver.manager.mobile.local;
 
+import com.noisegate.config.factory.ConfigFactory;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
 import org.openqa.selenium.Platform;
@@ -17,15 +18,12 @@ public final class IosManager {
 
     public static WebDriver getDriver(){
         DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, Platform.IOS);
-        capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "XCUItest");
-        capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "iPhone 11");
-        capabilities.setCapability(MobileCapabilityType.APP, System.getProperty("user.dir") + "/ApiDemos-debug.ipa");
+        capabilities.setCapability("platformName", Platform.IOS);
+        capabilities.setCapability("appium:automationName", "XCUItest");
+        capabilities.setCapability("appium:app", System.getProperty("user.dir") + "/ApiDemos-debug.ipa");
+        capabilities.setCapability("appium:deviceName", "iPhone Simulator");
+        capabilities.setCapability("appium:platformVersion", "17.2");
 
-        try {
-            return new RemoteWebDriver(new URL("http://127.0.0.1:4723"), capabilities);
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-        }
+        return new RemoteWebDriver(ConfigFactory.getConfig().localAppiumServerURL(), capabilities);
     }
 }
