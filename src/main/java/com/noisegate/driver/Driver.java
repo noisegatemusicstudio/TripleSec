@@ -1,15 +1,16 @@
 package com.noisegate.driver;
 
 
+import com.noisegate.config.enums.BrowserType;
 import com.noisegate.config.enums.MobilePlatformType;
+import com.noisegate.config.enums.RunModeType;
 import com.noisegate.config.factory.ConfigFactory;
 import com.noisegate.driver.entity.MobileDriverData;
 import com.noisegate.driver.entity.WebDriverData;
 import com.noisegate.driver.factory.DriverFactory;
 import com.noisegate.driver.factory.mobile.local.LocalMobileDriverFactory;
-import com.noisegate.driver.factory.mobile.remote.RemoteMobileDriverFactory;
-import com.noisegate.driver.factory.web.local.LocalDriverFactory;
-import com.noisegate.driver.factory.web.remote.RemoteDriverFactory;
+
+import com.noisegate.driver.factory.web.local.LocalWebDriverFactory;
 import org.openqa.selenium.WebDriver;
 
 import java.util.Objects;
@@ -23,17 +24,16 @@ public final class Driver {
     // Local Web, Remote Web, Local Mobile, Remote Mobile
 
     public static void initDriverForWeb() {
-        //WebDriver driver = LocalMobileDriverFactory.getDriver(MobilePlatformType.ANDROID);
-        WebDriver driver = RemoteMobileDriverFactory.getDriver(getConfig().mobileRemoteMode(),
-                MobilePlatformType.ANDROID);
-////        if (Objects.isNull(DriverManager.getDriver())) {
-////            WebDriverData driverData = new WebDriverData(getConfig().browser(), getConfig().browserRemoteMode());
-////            WebDriver driver = DriverFactory
-////                    .getDriverForWeb(getConfig().browserRunMode())
-////                    .getDriver(driverData);
-////            DriverManager.setDriver(driver);
-////            loadURL();
-//        }
+      //  WebDriver driver = LocalWebDriverFactory.getDriver(BrowserType.CHROME);
+
+        if (Objects.isNull(DriverManager.getDriver())) {
+            WebDriverData driverData = new WebDriverData(getConfig().browser());
+            WebDriver driver = DriverFactory
+                    .getDriverForWeb(RunModeType.LOCAL)
+                    .getDriver(driverData);
+            DriverManager.setDriver(driver);
+            loadURL();
+        }
     }
 
     public static void loadURL() {
@@ -41,9 +41,9 @@ public final class Driver {
     }
 
     public static void initDriverForMobile(MobilePlatformType mobilePlatformType) {
-        MobileDriverData driverData = new MobileDriverData(mobilePlatformType, getConfig().mobileRemoteMode());
+        MobileDriverData driverData = new MobileDriverData(mobilePlatformType);
         WebDriver driver = DriverFactory
-                .getDriverForMobile(getConfig().mobileRunMode())
+                .getDriverForMobile(RunModeType.LOCAL)
                 .getDriver(driverData);
         DriverManager.setDriver(driver);
     }

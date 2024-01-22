@@ -10,9 +10,9 @@ import java.util.EnumMap;
 import java.util.Map;
 import java.util.function.Supplier;
 
-public final class LocalDriverFactory {
+public final class LocalWebDriverFactory {
 
-  private LocalDriverFactory() {
+  private LocalWebDriverFactory() {
   }
 
   private static final Map<BrowserType, Supplier<WebDriver>> MAP =

@@ -5,10 +5,7 @@ import com.noisegate.driver.IMobileDriver;
 import com.noisegate.driver.IWebDriver;
 
 import com.noisegate.driver.impl.mobile.LocalMobileDriverImpl;
-import com.noisegate.driver.impl.mobile.RemoteMobileDriverImpl;
 import com.noisegate.driver.impl.web.LocalWebDriverImpl;
-import com.noisegate.driver.impl.web.RemoteWebDriverImpl
-;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -24,9 +21,7 @@ public final class DriverFactory {
 
   static {
     WEB.put(RunModeType.LOCAL, LocalWebDriverImpl::new);
-    WEB.put(RunModeType.REMOTE, RemoteWebDriverImpl::new);
     MOBILE.put(RunModeType.LOCAL, LocalMobileDriverImpl::new);
-    MOBILE.put(RunModeType.REMOTE, RemoteMobileDriverImpl::new);
   }
 
   public static IWebDriver getDriverForWeb(RunModeType runModeType) {
