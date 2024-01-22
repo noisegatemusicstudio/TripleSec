@@ -1,10 +1,8 @@
-package com.noisegate.driver.factory.mobile;
+package com.noisegate.driver.factory.mobile.local;
 
 import com.noisegate.config.enums.MobilePlatformType;
-import com.noisegate.driver.manager.mobile.AndroidManager;
-import com.noisegate.driver.manager.mobile.IosManager;
-import com.noisegate.driver.manager.web.ChromeManager;
-import com.noisegate.driver.manager.web.FirefoxManager;
+import com.noisegate.driver.manager.mobile.local.AndroidManager;
+import com.noisegate.driver.manager.mobile.local.IosManager;
 import org.openqa.selenium.WebDriver;
 
 public final class LocalMobileDriverFactory {

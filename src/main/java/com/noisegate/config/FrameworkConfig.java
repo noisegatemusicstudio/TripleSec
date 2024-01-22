@@ -1,8 +1,7 @@
 package com.noisegate.config;
 
-import com.noisegate.config.converters.StringToBrowserTypeConverter;
-import com.noisegate.config.converters.StringToURLConverter;
-import com.noisegate.config.enums.BrowserType;
+import com.noisegate.config.converters.*;
+import com.noisegate.config.enums.*;
 import org.aeonbits.owner.Config;
 
 import java.net.URL;
@@ -12,17 +11,48 @@ import java.net.URL;
         "system:properties",
         "system:env",
         "file:${user.dir}/src/test/resources/config.properties",
+        "file:${user.dir}/src/test/resources/staging-config.properties",
+        "file:${user.dir}/src/test/resources/dev-config.properties"
 })
-
 public interface FrameworkConfig extends Config {
+
+    @DefaultValue("staging")
+    String environment();
+
+    @Key("${environment}.webUrl")
+    String webUrl();
 
     @DefaultValue("CHROME")
     @ConverterClass(StringToBrowserTypeConverter.class)
     BrowserType browser();
 
-    @DefaultValue("http://127.0.0.1:4723/wd/hub")
+    @Key("runModeBrowser")
+    @ConverterClass(StringToRunModeBrowserTypeConverter.class)
+    RunModeType browserRunMode();
+
+    @Key("browserRemoteMode")
+    @ConverterClass(StringToRemoteModeBrowserTypeConverter.class)
+    BrowserRemoteModeType browserRemoteMode();
+
+    @Key("runModeMobile")
+    @ConverterClass(StringToRunModeBrowserTypeConverter.class)
+    RunModeType mobileRunMode();
+
+    @Key("mobileRemoteMode")
+    @ConverterClass(StringToMobileRemoteModeTypeConverter.class)
+    MobileRemoteModeType mobileRemoteMode();
+
     @ConverterClass(StringToURLConverter.class)
+    URL seleniumGridURL();
+
+    @ConverterClass(StringToURLConverter.class)
+    URL selenoidURL();
+
+    @ConverterClass(StringToURLConverter.class)
+    @DefaultValue("http://127.0.0.1:4723/wd/hub")
     URL localAppiumServerURL();
 
-    
+    @ConverterClass(StringToMobilePlatformTypeConverter.class)
+    @DefaultValue("ios")
+    MobilePlatformType mobilePlatformType();
 }

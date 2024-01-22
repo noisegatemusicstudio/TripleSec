@@ -1,4 +1,4 @@
-package com.noisegate.driver.manager.mobile;
+package com.noisegate.driver.manager.mobile.local;
 
 import com.noisegate.config.factory.ConfigFactory;
 import io.appium.java_client.android.AndroidDriver;

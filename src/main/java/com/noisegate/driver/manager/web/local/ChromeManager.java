@@ -1,4 +1,4 @@
-package com.noisegate.driver.manager.web;
+package com.noisegate.driver.manager.web.local;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
